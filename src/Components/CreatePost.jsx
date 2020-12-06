@@ -7,6 +7,7 @@ import {
   TextInput,
   SelectInput,
 } from "react-admin";
+//
 
 export const PostCreate = props => (
   <Create {...props}>
