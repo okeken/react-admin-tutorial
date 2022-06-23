@@ -1,22 +1,33 @@
 import * as React from "react";
-import { Admin, Resource } from "react-admin";
-import jsonServerProvider from "ra-data-json-server";
-import { UserList } from "./Components/User.jsx";
-import { PostList } from "./Components/Post.jsx";
-import { PostEdit } from "./Components/EditPost.jsx";
-import { PostCreate } from "./Components/CreatePost.jsx";
+import { Admin, Resource, CustomRoutes } from "react-admin";
 import { Dashboard } from "./Components/DashBoard.jsx";
-
-const dataProvider = jsonServerProvider("https://jsonplaceholder.typicode.com");
+import BrandList from "./views/brands/index.jsx";
+import dataProvider from "./dataProvider";
+import { authProvider } from "./authProvider.js";
+import ProductsCreate from "./views/products/components/CreateProducts.jsx";
+import EditProducts from "./views/products/components/EditProducts.jsx";
+import ProductList from "./views/products";
+import Login from "./views/Login.jsx";
+import { Route } from "react-router-dom";
+import Register from "./views/Register";
 
 const App = () => (
-  <Admin dashboard={Dashboard} dataProvider={dataProvider}>
-    <Resource name="users" list={UserList} />
+  <Admin
+    loginPage={Login}
+    dashboard={Dashboard}
+    authProvider={authProvider}
+    dataProvider={dataProvider}
+  >
+    <CustomRoutes noLayout>
+      <Route path="/register" element={<Register />} />
+    </CustomRoutes>
+
+    <Resource name="brands" list={BrandList} />
     <Resource
-      name="posts"
-      list={PostList}
-      edit={PostEdit}
-      create={PostCreate}
+      name="products"
+      list={ProductList}
+      edit={EditProducts}
+      create={ProductsCreate}
     />
   </Admin>
 );
